@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "strict": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@controller/*": ["./src/controller/*"],
+      "@entity/*": ["./src/entity/*"],
+      "@repository/*": ["./src/repository/*"],
+      "@service/*": ["./src/service/*"],
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build"]
+}
