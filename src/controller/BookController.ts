@@ -13,6 +13,18 @@ bookController.get('/', async (req: Request, res: Response) => {
     }
 });
 
+bookController.get('/infinite', async (req: Request, res: Response) => {
+    try {
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 20; // Optionally allow changing the limit
+        const books = await bookAPIService.getAllBooksWithTagsAndStock(page, limit);
+        res.json(books);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 bookController.post('/search', async (req: Request, res: Response) => {
     try {
         const { searchTerm } = req.body;

@@ -13,6 +13,22 @@ export class BookAPIRepository {
         return rows;
     }
 
+    async getAllBooksWithTagsAndStock(page: number, limit: number = 20) { // Default limit to 10 items per page
+        const offset = (page - 1) * limit;
+        const queryText = `
+      SELECT b.book_id, b.title, b.writer, b.cover_image, b.points, bs.stock_quantity, array_agg(t.name) AS tags
+      FROM books b
+      LEFT JOIN books_tags bt ON b.book_id = bt.book_id
+      LEFT JOIN tags t ON bt.tag_id = t.tag_id
+      LEFT JOIN book_stock bs ON b.book_id = bs.book_id
+      GROUP BY b.book_id, bs.stock_quantity
+      ORDER BY b.book_id
+      LIMIT $1 OFFSET $2;
+    `;
+        const { rows } = await pool.query(queryText, [limit, offset]);
+        return rows;
+    }
+
     async searchBooks(searchTerm: string) {
         const queryText = `
       SELECT b.book_id, b.title, b.writer, b.cover_image, b.points, bs.stock_quantity, array_agg(t.name) AS tags
