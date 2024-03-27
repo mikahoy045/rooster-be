@@ -17,7 +17,7 @@ const apiRouter = express.Router();
 apiRouter.use('/auth', authController);
 apiRouter.use('/books', bookController);
 apiRouter.use('/user', userController);
-apiRouter.use('/buy', orderController);
+apiRouter.use('/order', orderController);
 
 app.use('/api', apiRouter);
 

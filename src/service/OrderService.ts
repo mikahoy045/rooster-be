@@ -13,4 +13,20 @@ export class OrderService {
 
         return orderId;
     }
+
+    async cancelOrder(orderId: number): Promise<void> {
+        await this.orderRepository.cancelOrder(orderId);
+    }
+
+    async processPayment(orderId: number, username: string): Promise<void> {
+        await this.orderRepository.processPayment(orderId, username);
+    }
+
+    async getAllOrders() {
+        return await this.orderRepository.getAllOrders();
+    }
+
+    async getOrdersByUsername(username: string) {
+        return await this.orderRepository.getOrdersByUsername(username);
+    }
 }
