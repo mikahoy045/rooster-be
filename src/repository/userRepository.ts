@@ -1,19 +1,6 @@
-import { Pool, QueryResult } from 'pg';
-import dotenv from 'dotenv';
+import { QueryResult } from 'pg';
 import { User } from '../entity/User';
-
-dotenv.config();
-
-const pool = new Pool({
-    host: process.env.POSTGRES_HOST,
-    port: parseInt(process.env.DB_PORT || '5432'),
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE,
-    ssl: {
-        rejectUnauthorized: false,
-    },
-});
+import { pool } from './db';
 
 export class UserRepository {
     async findByUsername(username: string): Promise<User | undefined> {
