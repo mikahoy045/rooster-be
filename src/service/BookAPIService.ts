@@ -6,4 +6,8 @@ export class BookAPIService {
     async getAllBooks() {
         return await this.bookAPIRepository.getAllBooks();
     }
+
+    async searchBooks(searchTerm: string) {
+        return await this.bookAPIRepository.searchBooks(searchTerm);
+    }
 }

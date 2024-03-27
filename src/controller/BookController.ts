@@ -12,3 +12,19 @@ bookController.get('/', async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+bookController.post('/search', async (req: Request, res: Response) => {
+    try {
+        const { searchTerm } = req.body;
+        if (!searchTerm) {
+            res.status(400).json({ message: 'Search term is required' });
+            return;
+        }
+
+        const books = await bookAPIService.searchBooks(searchTerm);
+        res.json(books);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
