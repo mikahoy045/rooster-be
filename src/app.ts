@@ -9,8 +9,12 @@ dotenv.config();
 
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 
 app.use(express.json());
+app.use(cors({
+    origin: process.env.CORS_ORIGIN, // Allow only your frontend origin to access the API
+}));
 
 const apiRouter = express.Router();
 
